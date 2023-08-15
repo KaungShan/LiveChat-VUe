@@ -8,26 +8,19 @@
     </form>
 </template>
 <script>
-import { auth } from '@/firebase/config'
-import { ref } from 'vue'
+import { ref } from "vue"
+import useSignUp from '/Users/kaungshanoo/live-chat/src/composables/useSignUp.js'
 
 export default {
     setup(){
         let displayName=ref("")
         let email=ref("")
         let password=ref("")
-        let error=ref(null)
+
+        let {error, createAccount}=useSignUp()
         let SignUp=async()=>{
-           try {
-            let res=await auth.createUserWithEmailAndPassword(email.value, password.value)
-            if(!res){
-                throw new Error ("could not create account")
-            }
-            res.user.updateProfile({displayName: displayName.value})
-           } catch (err) {
-            error.value=err.message
-           }
-           
+           let res=await createAccount(email.value,password.value,displayName.value)
+           console.log(res)
         }
         return{ displayName,email,password,SignUp};
     }
