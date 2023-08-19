@@ -3,20 +3,23 @@
         <h1>Login</h1>
         <input type="email" v-model="email" placeholder="email">
         <input type="password" v-model="password" placeholder="password">
+        <div v-if="error" class="error">{{ error }}</div>
         <button>Log in</button>
     </form>
 </template>
 <script>
 import { ref } from 'vue'
-
+import useLogin from '@/composables/useLogin'
 export default {
     setup(){
         let email=ref("")
         let password=ref("")
-        let Login=()=>{
-            console.log(email.value, password.value)
+        let {error,signIn}=useLogin()
+        let Login=async()=>{
+            let res =await signIn(email.value,password.value)
+            console.log(res)
         }
-        return{email,password,Login};
+        return{email,password,Login,error};
     }
 }
 </script>

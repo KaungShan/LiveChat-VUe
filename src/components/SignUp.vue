@@ -4,6 +4,7 @@
         <input type="text" v-model="displayName" placeholder="display name">
         <input type="email" v-model="email" placeholder="email">
         <input type="password" v-model="password" placeholder="password">
+        <div v-if="error" class="error">{{ error }}</div>
         <button>Sign Up</button>
     </form>
 </template>
@@ -22,7 +23,7 @@ export default {
            let res=await createAccount(email.value,password.value,displayName.value)
            console.log(res)
         }
-        return{ displayName,email,password,SignUp};
+        return{ error,displayName,email,password,SignUp};
     }
 }
 </script>
