@@ -1,11 +1,11 @@
 <template>
     <div class="welcome container">
       <div v-if="showloginform">
-        <Login></Login>
+        <Login @enterChatroom="enterChatroom"></Login>
         <p>Not a member? <span @click="showloginform=!showloginform">Create a account?</span></p>
       </div>
       <div v-else>
-        <SignUp></SignUp>
+        <SignUp @enterChatroom="enterChatroom"></SignUp>
         <p>Already a member? <span @click="showloginform=!showloginform">Log in your account</span></p>
       </div>
     </div>
@@ -15,12 +15,17 @@
 import Login from '@/components/Login.vue';
 import SignUp from '@/components/SignUp.vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 
   export default {
     components: { SignUp, Login },
     setup(){
       let showloginform=ref(true);
-      return{showloginform};
+      let router=useRouter();
+      let enterChatroom=()=>{
+        router.push({name:"Chatroom"})
+      }
+      return{showloginform,enterChatroom};
     }
 }
   </script>

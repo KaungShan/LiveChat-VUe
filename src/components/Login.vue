@@ -10,14 +10,15 @@
 <script>
 import { ref } from 'vue'
 import useLogin from '@/composables/useLogin'
+
 export default {
-    setup(){
+    setup(props,context){
         let email=ref("")
         let password=ref("")
         let {error,signIn}=useLogin()
         let Login=async()=>{
             let res =await signIn(email.value,password.value)
-            console.log(res)
+            context.emit("enterChatroom")
         }
         return{email,password,Login,error};
     }

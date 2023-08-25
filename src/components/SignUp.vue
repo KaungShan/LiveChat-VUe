@@ -13,7 +13,7 @@ import { ref } from "vue"
 import useSignUp from '/Users/kaungshanoo/live-chat/src/composables/useSignUp.js'
 
 export default {
-    setup(){
+    setup(props,context){
         let displayName=ref("")
         let email=ref("")
         let password=ref("")
@@ -21,7 +21,7 @@ export default {
         let {error, createAccount}=useSignUp()
         let SignUp=async()=>{
            let res=await createAccount(email.value,password.value,displayName.value)
-           console.log(res)
+           context.emit("enterChatroom")
         }
         return{ error,displayName,email,password,SignUp};
     }
